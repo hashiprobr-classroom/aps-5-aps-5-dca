@@ -19,10 +19,4 @@ public class Leilao {
     public List<Item> getItems() {
         return items;
     }
-
-    public void imprimeMelhoresLances() {
-        for (Item item : items) {
-            item.imprimeMelhorLance();
-        }
-    }
 }
