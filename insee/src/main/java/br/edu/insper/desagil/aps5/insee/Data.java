@@ -1,20 +1,20 @@
 package br.edu.insper.desagil.aps5.insee;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Data extends Referencia {
     private int ano;
     private int mes;
     private int dia;
-    private Map<Integer, Integer> limites;
+    private HashMap<Integer, Integer> limites;
 
-    public Data(String observacao, int ano, int mes, int dia, Map<Integer, Integer> limites) {
-        super(observacao);
+    public Data() {
+        super();
         this.ano = 1970;
         this.mes = 1;
         this.dia = 1;
-        this.limites = limites;
+
+        limites = new HashMap<>();
         limites.put(1, 31);
         limites.put(2, 28);
         limites.put(3, 31);
@@ -41,45 +41,49 @@ public class Data extends Referencia {
         return dia;
     }
 
-    public void atualiza(int novoAno, int novoMes, int novoDia) {
-        if (novoAno < 1970) {
-            novoAno = 1970;
-            this.ano = novoAno;
-        }
-        if (novoMes < 1) {
-            novoMes = 1;
-        } else if (novoMes > 12) {
-            novoMes = 12;
-        }
-        if (novoDia < 1) {
-            novoDia = 1;
+
+    public void atualiza(int ano, int mes, int dia) {
+        if (ano < 1970) {
+            this.ano = 1970;
         } else {
-            int c = 0;
-            for (int i : limites.keySet()) {
-                    c += limites.get(i);
-                    if (novoMes == c) {
-                        if (novoDia > limites.get(i)) {
-                            novoDia = limites.get(i);
-                        }
-                    }
-                }
+            this.ano = ano;
         }
 
-        this.mes = novoMes;
-        this.dia = novoDia;
+        if (mes < 1) {
+            this.mes = 1;
+        } else if (mes > 12) {
+            this.mes = 12;
+        } else {
+            this.mes = mes;
+        }
+
+        if (dia < 1) {
+            this.dia = 1;
+        } else {
+            int limiteDoMes = limites.get(this.mes);
+            if (dia > limiteDoMes) {
+                this.dia = limiteDoMes;
+            } else {
+                this.dia = dia;
+            }
+        }
     }
 
     @Override
     public int comoInteiro() {
-        int diasTotais = 0;
-        for (int i = 1970; i < ano; i++) {
-            diasTotais += 365;
-        }
-        for (int i = 1; i < mes; i++) {
-            diasTotais += limites.get(i); //acessando o valor do dicionário referente a chave de indice i
+        int totalDias = 0;
+
+
+        totalDias += (ano - 1970) * 365;
+
+
+        for (int m = 1; m < mes; m++) {
+            totalDias += limites.get(m);
         }
 
-        diasTotais += -1;
-        return diasTotais;
+
+        totalDias += (dia - 1);
+
+        return totalDias;
     }
 }
