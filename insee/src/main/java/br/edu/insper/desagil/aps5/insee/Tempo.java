@@ -4,8 +4,8 @@ public class Tempo extends Referencia {
     private int hora;
     private int minuto;
 
-    public Tempo(String observacao, int hora, int minuto) {
-        super(observacao);
+    public Tempo() {
+        super();
         this.hora = 0;
         this.minuto = 0;
     }
@@ -18,29 +18,27 @@ public class Tempo extends Referencia {
         return minuto;
     }
 
-    public void atualiza(int nova_hora, int novo_minuto) {
-        if (nova_hora < 0) {
-            nova_hora = 0;
-        } else if (nova_hora > 23) {
-            nova_hora = 23;
-        }
-        if (novo_minuto < 0) {
-            novo_minuto = 0;
-        } else if (novo_minuto > 59) {
-            novo_minuto = 59;
-        }
-        this.minuto = novo_minuto;
-        this.hora = nova_hora;
-    }
 
+    public void atualiza(int hora, int minuto) {
+        if (hora < 0) {
+            this.hora = 0;
+        } else if (hora > 23) {
+            this.hora = 23;
+        } else {
+            this.hora = hora;
+        }
+
+        if (minuto < 0) {
+            this.minuto = 0;
+        } else if (minuto > 59) {
+            this.minuto = 59;
+        } else {
+            this.minuto = minuto;
+        }
+    }
 
     @Override
     public int comoInteiro() {
-        int minutosTotais = 0;
-        minutosTotais = hora * 60 + minuto;
-        return minutosTotais;
-
+        return hora * 60 + minuto;
     }
-
-
 }
