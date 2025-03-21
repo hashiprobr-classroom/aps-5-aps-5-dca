@@ -8,7 +8,7 @@ public class Data extends Referencia {
     private int dia;
     private HashMap<Integer, Integer> limites;
 
-    public Data() {
+    public Data(int ano, int mes, int dia) {
         super();
         this.ano = 1970;
         this.mes = 1;
