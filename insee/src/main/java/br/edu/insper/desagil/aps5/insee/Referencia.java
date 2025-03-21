@@ -1,9 +1,9 @@
 package br.edu.insper.desagil.aps5.insee;
 
-public class Referencia {
+public abstract class Referencia {
     private String observacao;
 
-    public Referencia(String observacao) {
+    public Referencia() {
         this.observacao = "";
     }
 
@@ -15,7 +15,7 @@ public class Referencia {
         this.observacao = observacao;
     }
 
-    public int comoInteiro() {
-        return 0;
-    }
+    public abstract int comoInteiro();
 }
+
+
