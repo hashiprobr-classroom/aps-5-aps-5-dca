@@ -4,10 +4,11 @@ public class Tempo extends Referencia {
     private int hora;
     private int minuto;
 
-    public Tempo() {
+    public Tempo(String observacao, int hora, int minuto) {
         super();
         this.hora = 0;
         this.minuto = 0;
+        atualiza(hora, minuto);
     }
 
     public int getHora() {
